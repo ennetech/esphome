@@ -1,0 +1,14 @@
+uart:
+  - id: uart_dfrobot_sen0623
+    tx_pin: ${tx_pin}
+    rx_pin: ${rx_pin}
+    baud_rate: 115200
+
+dfrobot_sen0623:
+  id: mmwave
+
+select:
+  - platform: dfrobot_sen0623
+    mode:
+      name: Mode
+      initial_option: fall
