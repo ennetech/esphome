@@ -9,7 +9,6 @@ from . import CONF_DFROBOT_SEN0623_ID, DfrobotSen0623Component
 DEPENDENCIES = ["dfrobot_sen0623"]
 
 CONF_PRESENCE = "presence"
-CONF_FALL_DETECTED = "fall_detected"
 
 CONFIG_SCHEMA = (
     cv.Schema(
@@ -18,7 +17,6 @@ CONFIG_SCHEMA = (
             cv.Optional(CONF_PRESENCE): binary_sensor.binary_sensor_schema(
                 device_class=DEVICE_CLASS_PRESENCE
             ),
-            cv.Optional(CONF_FALL_DETECTED): binary_sensor.binary_sensor_schema(),
         }
     )
 )
@@ -30,7 +28,3 @@ async def to_code(config):
     if presence := config.get(CONF_PRESENCE):
         sens = await binary_sensor.new_binary_sensor(presence)
         cg.add(parent.set_presence_binary_sensor(sens))
-
-    if fall := config.get(CONF_FALL_DETECTED):
-        sens = await binary_sensor.new_binary_sensor(fall)
-        cg.add(parent.set_fall_detected_binary_sensor(sens))
