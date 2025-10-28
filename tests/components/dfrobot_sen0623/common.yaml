@@ -1,0 +1,75 @@
+uart:
+  - id: uart_dfrobot_sen0623
+    tx_pin: ${tx_pin}
+    rx_pin: ${rx_pin}
+    baud_rate: 115200
+
+uart:
+    baud_rate: 115200
+    tx_pin: ${tx_pin}
+    rx_pin: ${rx_pin}
+
+
+dfrobot_sen0623:
+  update_interval: 5s
+  id: sen0623
+
+
+sensor:
+  - platform: dfrobot_sen0623
+    heart_rate:
+      name: "Heart rate"
+    breath_rate:
+      name: "Breath rate"
+    human_distance:
+      name: "Human distance"
+    human_move_range:
+      name: "Human move range"
+
+  - platform: debug
+    free:
+      name: "999. Heap Free"
+    block:
+     name: "999. Heap Max Block"
+    loop_time:
+      name: "999. Loop Time"
+
+text_sensor:
+  - platform: dfrobot_sen0623
+    status:
+      name: "Operating mode"
+    movement:
+      name: "Movement type"
+  - platform: template
+    name: Version
+    lambda: |-
+        return {"v1.1"};
+      
+binary_sensor:
+  - platform: dfrobot_sen0623
+    dfrobot_sen0623_id: sen0623
+    presence:
+      name: "Presence"
+    fall_detected:
+      name: "Fall Detected"
+
+switch:
+  - platform: dfrobot_sen0623
+    type: request_rate
+    name: "Request rate"
+  
+  - platform: dfrobot_sen0623
+    type: hp_led
+    name: "HP Led Enabled"
+
+button:
+  - platform: dfrobot_sen0623
+    type: mode_fall
+    name: "Fall mode"
+  - platform: dfrobot_sen0623
+    type: mode_sleep
+    name: "Sleep mode"
+  - platform: dfrobot_sen0623
+    type: reset
+    name: "Reset"
+
